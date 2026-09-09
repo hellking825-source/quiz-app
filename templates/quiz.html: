@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            max-width: 450px;
+            width: 100%;
+        }
+        .progress { color: #888; font-size: 14px; margin-bottom: 10px; }
+        h2 { color: #333; }
+        .option {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            background: #f0f0f5;
+            border: 2px solid transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: left;
+        }
+        .option:hover { border-color: #4CAF50; }
+        button {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover { background: #45a049; }
+        input[type="radio"] { margin-right: 8px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="progress">Question {{ q_number }} of {{ total_questions }}</div>
+        <h2>{{ question.question }}</h2>
+        <form method="POST">
+            {% for option in question.options %}
+                <label class="option">
+                    <input type="radio" name="option" value="{{ option }}" required>
+                    {{ option }}
+                </label>
+            {% endfor %}
+            <button type="submit">
+                {% if q_number == total_questions %}Finish{% else %}Next{% endif %}
+            </button>
+        </form>
+    </div>
+</body>
+</html>
