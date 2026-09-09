@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 { color: #333; }
+        .student-info { color: #555; font-size: 15px; margin-bottom: 10px; }
+        .student-info strong { color: #333; }
+        .score {
+            font-size: 48px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin: 20px 0;
+        }
+        .review { text-align: left; margin-top: 30px; }
+        .review-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .correct { background: #e6f7e9; border-left: 4px solid #4CAF50; }
+        .incorrect { background: #fdecea; border-left: 4px solid #f44336; }
+        a.button {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 30px;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        a.button:hover { background: #45a049; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Quiz Complete!</h1>
+        {% if student_name %}
+            <div class="student-info">
+                <strong>{{ student_name }}</strong> &middot; Class: {{ student_class }}
+            </div>
+        {% endif %}
+        <div class="score">{{ score }} / {{ total }}</div>
+
+        <div class="review">
+            {% for item in answers %}
+                <div class="review-item {{ 'correct' if item.is_correct else 'incorrect' }}">
+                    <strong>{{ item.question }}</strong><br>
+                    Your answer: {{ item.selected }}
+                    {% if not item.is_correct %}
+                        <br>Correct answer: {{ item.correct_answer }}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <a class="button" href="{{ url_for('index') }}">Try Again</a>
+    </div>
+</body>
+</html>
